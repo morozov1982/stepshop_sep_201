@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,13 +14,13 @@
     <title>Pixie - Ecommerce HTML5 Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/static/stepshop/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'stepshop/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="/static/stepshop/assets/css/fontawesome.css">
-    <link rel="stylesheet" href="/static/stepshop/assets/css/tooplate-main.css">
-    <link rel="stylesheet" href="/static/stepshop/assets/css/owl.css">
+    <link rel="stylesheet" href="{% static 'stepshop/assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'stepshop/assets/css/tooplate-main.css' %}">
+    <link rel="stylesheet" href="{% static 'stepshop/assets/css/owl.css' %}">
 <!--
 Tooplate 2114 Pixie
 https://www.tooplate.com/view/2114-pixie
@@ -32,7 +34,24 @@ https://www.tooplate.com/view/2114-pixie
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <span>Suspendisse laoreet magna vel diam lobortis imperdiet</span>
+            <span>
+              {% if user.is_authenticated %}
+                Это видит суперюзер: {{ user.username }} {{ user.is_active }}
+              {% else %}
+                Это видят все
+              {% endif %}
+
+
+              {#% for item in object %#}
+                {#{ item }#}
+              {#% endfor %#}
+
+
+
+
+
+
+            </span>
           </div>
         </div>
       </div>
@@ -253,7 +272,7 @@ https://www.tooplate.com/view/2114-pixie
         <div class="row">
           <div class="col-md-12">
             <div class="copyright-text">
-              <p>Copyright &copy; 2019 Company Name 
+              <p>Copyright &copy; {% now "Y" %} Company Name
                 
                 - Design: <a rel="nofollow" href="https://www.facebook.com/tooplate">Tooplate</a></p>
             </div>
