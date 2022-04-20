@@ -1,26 +1,14 @@
 [
   {
-    "model": "mainapp.productcategory",
-    "pk": 1,
-    "fields": {
-      "name": "Джинсы",
-      "description": "Лень писать"
-    }
+    "name": "Джинсы",
+    "description": "Лень писать"
   },
   {
-    "model": "mainapp.productcategory",
-    "pk": 2,
-    "fields": {
-      "name": "Кроссовки",
-      "description": "Наши кроссовки не пахнут"
-    }
+    "name": "Кроссовки",
+    "description": "Наши кроссовки не пахнут"
   },
   {
-    "model": "mainapp.productcategory",
-    "pk": 3,
-    "fields": {
-      "name": "Бобры",
-      "description": "Трудяги"
-    }
+    "name": "Бобры",
+    "description": "Трудяги"
   }
 ]
