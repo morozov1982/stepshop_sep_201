@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="ru">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>
+        {% block title %}
+            {% if title %}
+                {{ title|capfirst }}
+            {% else %}
+                Заголовок
+            {% endif %}
+        {% endblock %}
+    </title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'stepshop/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    {% block css %}{% endblock %}
+</head>
+
+<body>
+
+<div class="container">
+    <div class="login">
+        <h2 class="text-center head">
+            Вход в систему
+        </h2>
+
+        {% block content %}{% endblock %}
+
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="/static/stepshop/vendor/jquery/jquery.min.js"></script>
+<script src="/static/stepshop/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+{% block js %}{% endblock %}
+
+</body>
+
+</html>

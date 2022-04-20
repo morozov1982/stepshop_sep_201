@@ -42,9 +42,9 @@
             <div class="col-md-12">
             <span>
               {% if user.is_authenticated %}
-                Это видит суперюзер: {{ user.username|title }} {{ user.is_active }}
+                <a href="{% url 'auth:logout' %}" class="text-light">выйти</a>
               {% else %}
-                Это видят все
+                <a href="{% url 'auth:login' %}" class="text-light">войти</a>
               {% endif %}
             </span>
             </div>

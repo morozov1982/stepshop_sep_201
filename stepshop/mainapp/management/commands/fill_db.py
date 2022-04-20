@@ -1,7 +1,7 @@
 import json
 import os.path
 
-from django.contrib.auth.models import User
+from django.core import management
 from django.core.management.base import BaseCommand
 
 from authapp.models import ShopUser
@@ -17,17 +17,18 @@ def load_from_json(file_name):
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        categories = load_from_json('categories')
+        management.call_command('flush', verbosity=0, interactive=False)
 
-        ProductCategory.objects.all().delete()
+        categories = load_from_json('categories')
+        products = load_from_json('products')
+
+        # ProductCategory.objects.all().delete()
 
         for category in categories:
             new_category = ProductCategory(**category)
             new_category.save()
 
-        products = load_from_json('products')
-
-        Product.objects.all().delete()
+        # Product.objects.all().delete()
 
         for product in products:
             category_pk = product['category']
