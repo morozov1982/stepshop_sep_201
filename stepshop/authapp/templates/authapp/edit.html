@@ -4,8 +4,8 @@
 {% block content %}
 <div class="row">
     <div class="mx-auto col-3">
-        <div class="user_avatar">
-            <img src="/media/{{ user.avatar }}" alt="" class="rounded_circle">
+        <div class="user_avatar text-center">
+            <img src="/media/{{ user.avatar }}" alt="" class="rounded-circle">
         </div>
     </div>
 </div>
@@ -15,10 +15,12 @@
         <form action="{% url 'auth:edit' %}" class="form-horizontal" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ edit_form.as_p }}
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-            <button class="btn btn-round last">
-                <a href="{% url 'index' %}">на главную</a>
-            </button>
+            <div class="d-flex justify-content-between mb-5">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button class="btn btn-round last">
+                    <a href="{% url 'index' %}">на главную</a>
+                </button>
+            </div>
         </form>
     </div>
 </div>
