@@ -13,11 +13,11 @@
 
     <title>
         {% block title %}
-            {% if title %}
-                {{ title|capfirst }}
-            {% else %}
-                Заголовок
-            {% endif %}
+        {% if title %}
+        {{ title|capfirst }}
+        {% else %}
+        Заголовок
+        {% endif %}
         {% endblock %}
     </title>
 
@@ -40,13 +40,21 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-            <span>
-              {% if user.is_authenticated %}
-                <a href="{% url 'auth:logout' %}" class="text-light">выйти</a>
-              {% else %}
-                <a href="{% url 'auth:login' %}" class="text-light">войти</a>
-              {% endif %}
-            </span>
+                {% if user.is_authenticated %}
+                <span>
+                    <a href="{% url 'auth:edit' %}" class="text-light">
+                        {{ user.first_name|default:'Пользователь' }}
+                    </a>
+                </span>
+                |
+                {% endif %}
+                <span>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'auth:logout' %}" class="text-light">выйти</a>
+                    {% else %}
+                        <a href="{% url 'auth:login' %}" class="text-light">войти</a>
+                    {% endif %}
+                </span>
             </div>
         </div>
     </div>
@@ -57,7 +65,7 @@
 <!-- Page Content -->
 
 {% block content %}
-    HTML из base.html
+HTML из base.html
 {% endblock %}
 
 <!-- Subscribe Form Starts Here -->
@@ -173,6 +181,7 @@
           t.style.color='#fff';
           }
       }
+
 
 </script>
 
