@@ -14,16 +14,15 @@
 
                 {% for item in links_menu %}
                 <li class="nav-item
-                        {% if request.resolver_match.url_name == item.href %}
+                        {% if request.resolver_match.route == item.route %}
                             active
                         {% endif %}">
                     <a class="nav-link" href="{% url item.href %}">{{ item.name|safe }}
-                        {% if request.resolver_match.url_name == item.href %}
+                        {% if request.resolver_match.route == item.route %}
                             <span class="sr-only">(current)</span>
                         {% endif %}
                     </a>
                 </li>
-
                 {% endfor %}
             </ul>
         </div>

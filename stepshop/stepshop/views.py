@@ -5,10 +5,10 @@ def index(request):
     title = "главная страница"
 
     links_menu = [
-        {'href': 'index', 'name': 'Главная'},
-        {'href': 'products:index', 'name': 'Продукты'},
-        # {'href': 'about', 'name': 'О&nbsp;нас'},
-        {'href': 'contacts', 'name': 'Контакты'},
+        {'href': 'index', 'name': 'Главная', 'route': ''},
+        {'href': 'products:index', 'name': 'Продукты', 'route': 'products/'},
+        # {'href': 'about', 'name': 'О&nbsp;нас', 'route': 'about/'},
+        {'href': 'contacts', 'name': 'Контакты', 'route': 'contacts/'},
     ]
 
     context = {
