@@ -55,6 +55,19 @@
                         <a href="{% url 'auth:login' %}" class="text-light">войти</a>
                     {% endif %}
                 </span>
+
+                {% if user.is_authenticated %}
+                |
+                <span>
+                    <a href="{% url 'basket:view' %}" class="basket text-light">
+                        Корзина
+                        <span>{{ basket.0.total_quantity }}</span>
+                    </a>
+                    <span>
+                        {{ basket.0.total_cost|floatformat:0 }}
+                    </span>
+                </span>
+                {% endif %}
             </div>
         </div>
     </div>

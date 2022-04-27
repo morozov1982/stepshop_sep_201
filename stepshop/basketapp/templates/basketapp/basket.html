@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="container w-50">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="col-1">№</th>
+                <th class="col">Продукт</th>
+                <th class="col">Количество</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in basket %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ item.product }}</td>
+                <td>{{ item.quantity }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
