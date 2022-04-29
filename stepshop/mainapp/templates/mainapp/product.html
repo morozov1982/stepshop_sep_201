@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load my_tags %}
 
 {% block content %}
     <!-- Page Content -->
@@ -16,14 +17,19 @@
           <div class="col-md-6">
             <div class="product-slider">
               <div id="slider" class="flexslider">
-                <img src="{{ product.image.url }}" alt="product.name" title="product.name" class="img-fluid">
+                {#% if product.image %#}
+                <img src="{{ product.image|media_folder_products }}"
+                     alt="{{ product.name }}"
+                     title="{{ product.name }}"
+                     class="img-fluid">
+                {#% endif %#}
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="right-content">
               <h4>{{ product.name }}</h4>
-              <h6>${{ product.price }}</h6>
+              <h6>${{ product.price|floatformat:"0g" }}</h6>
               <p>{{ product.description }}</p>
 
               <div class="main-button">
