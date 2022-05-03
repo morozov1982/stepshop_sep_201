@@ -4,9 +4,9 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<div class="container w-50">
-    <div class="row">
-        <table class="table">
+<div class="container w-50 mt-5">
+    <div class="row basket_list">
+        <table class="table mt-3">
             <thead>
             <tr>
                 <th class="col-1">№</th>
@@ -45,4 +45,8 @@
 </div>
 {% endif %}
 
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'stepshop/assets/js/basket.js' %}"></script>
 {% endblock %}

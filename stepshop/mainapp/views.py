@@ -1,9 +1,27 @@
+import random
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from basketapp.models import Basket
 from mainapp.models import Product, ProductCategory
+
+
+def get_basket(user):
+    if user.is_authenticated:
+        return Basket.objects.filter(user=user)
+    return []
+
+
+def get_hot_product():
+    products = Product.objects.all()
+    return random.sample(list(products), 1)[0]
+
+
+def get_same_product(product):
+    same_products = Product.objects.filter(category=product.category).exclude(pk=product.pk)
+    return same_products
 
 
 def products(request, pk=None):
@@ -18,10 +36,7 @@ def products(request, pk=None):
 
     products = Product.objects.all()  # .filter(price__gte=500, category__name__endswith='ы').order_by('-price')[:2]
     categories = ProductCategory.objects.all()
-    basket = []
-
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
+    basket = get_basket(request.user)
 
     if pk is not None:
         if pk == 0:
@@ -67,6 +82,9 @@ def product(request, pk):
     product_item = get_object_or_404(Product, pk=pk)
 
     category = product_item.category
+    basket = get_basket(request.user)
+
+    same_products = get_same_product(product_item)
 
     # if not category.is_active or not product_item.is_active:
     #     return HttpResponseRedirect(reverse('products:index'))
@@ -76,6 +94,8 @@ def product(request, pk):
         'links_menu': links_menu,
         'product': product_item,
         'category': category,
+        'same_products': same_products,
+        'basket': basket,
     }
 
     return render(request, 'mainapp/product.html', context)

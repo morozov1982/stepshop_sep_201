@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from mainapp.views import get_hot_product
+
 
 def index(request):
     title = "главная страница"
@@ -11,9 +13,12 @@ def index(request):
         {'href': 'contacts', 'name': 'Контакты', 'route': 'contacts/'},
     ]
 
+    hot_product = get_hot_product()
+
     context = {
         'title': title,
         'links_menu': links_menu,
+        'hot_product': hot_product,
     }
 
     return render(request, 'index.html', context)
