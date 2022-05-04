@@ -13,6 +13,8 @@ class ProductCategory(models.Model):
         blank=True,
     )
 
+    is_deleted = models.BooleanField(default=False)
+
     def __str__(self):
         return self.name or f'Категория с id - {self.pk}'
 
@@ -69,6 +71,8 @@ class Product(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True,
     )
+
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name or f'Продукт с id - {self.pk}'
