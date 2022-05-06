@@ -65,8 +65,22 @@ def user_update(request, pk):
     return render(request, 'adminapp/user_update.html', context)
 
 
-def user_delete(request):
-    pass
+def user_delete(request, pk):
+    title = "админка | пользователи | удалить"
+
+    user = get_object_or_404(ShopUser, pk=pk)
+
+    if request.method == 'POST':
+        user.is_deleted = True
+        user.save()
+        return HttpResponseRedirect(reverse('admin_staff:users'))
+
+    context = {
+        'title': title,
+        'user_to_delete': user,
+    }
+
+    return render(request, 'adminapp/user_delete.html', context)
 
 
 def category_create(request):
