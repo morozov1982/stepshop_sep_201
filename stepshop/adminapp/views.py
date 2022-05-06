@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.views.generic.list import ListView
 
 from adminapp.forms import ShopUserAdminEditForm
 from authapp.forms import ShopUserRegisterForm
@@ -29,18 +31,36 @@ def user_create(request):
     return render(request, 'adminapp/user_create.html', context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def users(request):
-    title = "админка | пользователи"
+# @user_passes_test(lambda u: u.is_superuser)
+# def users(request):
+#     title = "админка | пользователи"
+#
+#     users_list = ShopUser.objects.all().order_by('-is_active', '-is_superuser', '-is_staff', 'username')
+#
+#     context = {
+#         'title': title,
+#         'objects': users_list,
+#     }
+#
+#     return render(request, 'adminapp/users.html', context)
 
-    users_list = ShopUser.objects.all().order_by('-is_active', '-is_superuser', '-is_staff', 'username')
 
-    context = {
-        'title': title,
-        'objects': users_list,
-    }
+class UsersListView(UserPassesTestMixin, ListView):
+    model = ShopUser
+    template_name = 'adminapp/users.html'
+    context_object_name = 'objects'
 
-    return render(request, 'adminapp/users.html', context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UsersListView, self).get_context_data()
+        context['title'] = "админка | пользователи"
+        # context.update({'title': "админка | пользователи"})
+        return context
+
+    def get_queryset(self):
+        return ShopUser.objects.all().order_by('-is_active', '-is_superuser', '-is_staff', 'username')
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 def user_update(request, pk):
