@@ -35,40 +35,17 @@ def products(request, pk=None, page=1):
         {'href': 'contacts', 'name': 'Контакты', 'route': 'contacts/'},
     ]
 
-    #products = Product.objects.all()  # .filter(price__gte=500, category__name__endswith='ы').order_by('-price')[:2]
-
     products = Product.objects.filter(is_deleted=False)
     categories = ProductCategory.objects.all()
     basket = get_basket(request.user)
+    category = {'name': 'все'}
 
     if pk is not None:
-        if pk == 0:
-            products = Product.objects.filter(is_deleted=False).order_by('price')
-            category = {'name': 'все'}
-        else:
-            category = get_object_or_404(ProductCategory, pk=pk)
-            products = Product.objects.filter(is_deleted=False, category__pk=pk).order_by('price')
+        category = get_object_or_404(ProductCategory, pk=pk)
+        products = Product.objects.filter(is_deleted=False, category__pk=pk).order_by('price')
 
-        paginator = Paginator(products, 3)
-
-        try:
-            products_paginator = paginator.page(page)
-        except PageNotAnInteger:
-            products_paginator = paginator.page(1)
-        except EmptyPage:
-            products_paginator = paginator.page(paginator.num_pages)
-
-        context = {
-            'title': title,
-            'links_menu': links_menu,
-            'products': products_paginator,  # 'products': products,
-            'categories': categories,
-            'pk': pk,
-            'category': category,
-            'basket': basket,
-        }
-
-        return render(request, 'mainapp/products.html', context)
+        if category.is_deleted:
+            return HttpResponseRedirect(reverse('products:index'))
 
     paginator = Paginator(products, 3)
 
@@ -85,6 +62,7 @@ def products(request, pk=None, page=1):
         'products': products_paginator,  # 'products': products,
         'categories': categories,
         'pk': pk,
+        'category': category,
         'basket': basket,
     }
 
